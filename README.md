@@ -4,7 +4,9 @@ ESP8266 acts as an SPI master and sends simple command bytes (`0x01` increase, `
 
 ## Repo contents
 -`/fpga` : VHDL sources (SPI slave, PWM generator, top module, testbench)
+
 -`/esp8266`: Arduino sketch (Wi-Fi + SPI master) and webpage
+
 - `/docs` : diagrams and report
 
 ## Features
