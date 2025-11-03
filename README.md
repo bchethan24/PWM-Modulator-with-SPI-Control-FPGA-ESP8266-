@@ -7,7 +7,7 @@ ESP8266 acts as an SPI master and sends simple command bytes (`0x01` increase, `
 
 -`/esp8266`: Arduino sketch (Wi-Fi + SPI master) and webpage
 
-- `/connection` : diagrams and pin configuration
+- `/connection` : Pin configuration
 
 ## Features
 - SPI-based control (simple 1-byte commands)
