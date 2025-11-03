@@ -45,43 +45,12 @@ A lightweight IoT-to-hardware demo: the ESP8266 provides a user-friendly web int
 | D7 (GPIO13)       | MOSI      | `mosi`             |
 | D8 (GPIO15)       | SS / CS   | `cs_n` (active low)|
 | GND               | GND       | GND                |
-| 3.3V              | Vcc (ESP) | (do not tie to FPGA 5V IO) |
 
 **LED**: connect FPGA `pwm_out` → resistor (220Ω) → LED → GND (or to driver if higher current required).
 
 ---
-
-## Implementation notes & recommendations
-- SPI Mode: use **Mode 0** (CPOL=0, CPHA=0) on both master and slave.  
-- SPI speed: ESP side can run at 1 MHz (or higher) — ensure SPI slave sampling is done in a clock domain significantly faster than SCLK (e.g., sample using the FPGA system clock, not the divided 1 MHz clock).  
-- PWM mapping: commonly an 8-bit duty register is scaled to a larger counter (e.g., `threshold = duty << 8`) if the PWM counter is 16-bit. This gives 256 duty steps.  
-- Ensure `cs_n` resets the bit counter on the slave to avoid partial-byte issues.  
-- Measure PWM frequency on an oscilloscope and note it for the viva (e.g., with 100 MHz system clock and 16-bit counter, `f_pwm ≈ 100e6 / 65536 ≈ 1526 Hz`).
-
----
-
-## How to modify ESP behavior
-The ESP8266 sketch is intentionally simple. You can modify it to:
-- Send `increase` / `decrease` / `reset` commands on button events (default).  
-- Send direct duty values (one-byte 0–255) instead of step commands.  
-- Automate sequences: sweep, random patterns, or timed changes.  
-- Implement acknowledgements (two-way SPI) by adding MISO support on FPGA.
-
----
-
-## Files to check / edit before demo
-- `fpga/constraints.xdc` — update pin mappings for your FPGA board.  
-- `fpga/clock_divider.v` — ensure `DIV` matches your board clock to produce intended sampling/frequency.  
-- `esp8266/esp8266_master.ino` — set desired SPI speed and pin mapping if using non-default pins.
-
----
-
 ## Troubleshooting tips
 - If LED doesn't change: verify common GND, correct pins, and that FPGA bitstream is loaded.  
-- If data seems garbled: check SPI mode, sampling domain, and that `cs_n` toggles per byte.  
-- If ESP cannot host AP: check serial monitor for errors and valid Wi-Fi initialization.
-
----
 
 ## Authors
 -  B CHETHAN  
