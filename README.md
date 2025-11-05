@@ -245,14 +245,13 @@ Department of Electronics and Communication Engineering
 
 - IIITDM Kurnool — Lab Infrastructure  
 - Dr. P. Ranga Babu — Project Guidance  
-- Xilinx & Espressif — Tools & Documentation  
-- Open Hardware Community — Reference Support  
+- Xilinx & Espressif — Tools & Documentation    
 
 ---
 
 ## ✅ Summary
 
-A fully verified **SPI-based wire-controlled PWM Modulator** integrating **FPGA and ESP8266**, synthesized successfully on **Vivado 2024.2** with **0 errors**.  
+A fully verified **SPI-based wire-controlled PWM Modulator** integrating **FPGA and ESP8266**, synthesized successfully on **Vivado 2024.2**.  
 It illustrates the bridge between **VLSI hardware design and embedded system control**, suitable for academic and industrial applications.
 
 ---
