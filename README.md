@@ -1,48 +1,23 @@
-# PWM Modulator with SPI Control (FPGA slave + ESP8266 master)
+# 🎯 PWM Modulator with SPI Control (FPGA Slave + ESP8266 Master)
 
-**Brief:**  
-ESP8266 acts as an SPI master and sends simple command bytes (`0x01` → increase, `0x02` → decrease) to an FPGA-based SPI slave. The FPGA converts the received value into a PWM duty cycle driving an LED — LED brightness changes with the PWM duty cycle.
+![FPGA](https://img.shields.io/badge/FPGA-Zynq%207000-blue?style=for-the-badge)
+![Controller](https://img.shields.io/badge/Controller-ESP8266-orange?style=for-the-badge)
+![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)
+![Status](https://img.shields.io/badge/Status-Complete-success?style=for-the-badge)
 
----
+*A wire-controlled PWM modulation system demonstrating SPI communication between ESP8266 and FPGA.*
 
-## Repo contents
-- `/fpga/`     : Verilog/VHDL sources (SPI slave, clock divider, PWM generator, top module)  
-- `/esp8266/`  : Arduino sketch (SPI master)
-- `/connection/`: Pin configuration, wiring diagram and connection images
-
----
-
-## Features
-- SPI-based control (simple 1-byte commands)  
-- FPGA generates timing-accurate PWM signal    
-- LED as a visual PWM output (brightness proportional to duty)  
-- ESP8266 can be reprogrammed to send custom duty sequences or direct duty values as required
+[Overview](#-overview) • [Architecture](#-architecture) • [Features](#-features) • [Repo Structure](#-repo-structure) • [Quick Start](#-quick-start-hardware) • [Connection](#-connection-wiring) • [Troubleshooting](#-troubleshooting-tips) • [Authors](#-authors)
 
 ---
 
-## Quick start (hardware)
-1. Program the FPGA with `fpga/pwm_top.v` (or `pwm_top.vhd`) from `/fpga/`.  
-2. Upload `esp8266/esp8266_master.ino` to your NodeMCU / ESP8266.  
-3. Wire the ESP8266 to the FPGA (see connection table below). Ensure common ground.  
-4. Power devices (check IO voltage compatibility).  
-5. Initialize the internal LED on the FPGA to PWM output pin.
+## 🧩 Overview
+
+This project demonstrates **SPI-based communication** between an **ESP8266 (master)** and an **FPGA (slave)** to achieve **real-time PWM control** of an LED.  
+The ESP8266 sends simple 1-byte commands over SPI to the FPGA, which adjusts the PWM duty cycle accordingly — changing LED brightness dynamically.  
+It is a **wire-controlled PWM system**, where the duty cycle can be remotely controlled or programmed as required.
 
 ---
 
-## Connection (wiring) table
-> **Important:** ESP8266 IO = 3.3 V. Make sure your FPGA IO bank is 3.3 V tolerant or use level shifters.
+## 🏗 Architecture
 
-| ESP8266 (NodeMCU) | Signal    | FPGA signal / port |
-|-------------------|-----------|--------------------|
-| D5 (GPIO14)       | SCLK      | `sclk`             |
-| D7 (GPIO13)       | MOSI      | `mosi`             |
-| D8 (GPIO15)       | SS / CS   | `cs_n`             |
-| GND               | GND       | GND                |
-
----
-## Troubleshooting tips
-- If LED doesn't change: verify common GND, correct pins, and that FPGA bitstream is loaded.  
-
-## Authors
--  B CHETHAN  
--  T MANOJ KUMAR
