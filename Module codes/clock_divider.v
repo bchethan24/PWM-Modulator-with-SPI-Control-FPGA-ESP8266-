@@ -1,6 +1,7 @@
 `timescale 1ns / 1ps
-module clock_divider #(parameter DIV = 50)
-(
+module clock_divider #(
+    parameter DIV = 50
+)(
     input  wire clk_in,
     input  wire rst,
     output reg  clk_out
