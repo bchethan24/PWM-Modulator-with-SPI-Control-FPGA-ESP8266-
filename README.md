@@ -59,6 +59,38 @@ Thus, the LED’s intensity is **wire-controlled** through SPI communication.
 
 ---
 
+## 🧩 Detailed RTL Component Information
+
+The synthesized design includes a well-structured combination of arithmetic, sequential, and combinational blocks forming the SPI-based PWM controller. The RTL breakdown is as follows:
+
+### ➕ Adders
+| Type | Bit Width | Quantity | Function |
+|-------|------------|-----------|-----------|
+| 2-Input | 32-bit | 1 | Used for PWM counter increment |
+| 2-Input | 3-bit | 1 | SPI data computation |
+| 2-Input | 2-bit | 1 | Control signal processing |
+
+### 🧮 Registers
+| Bit Width | Quantity | Function |
+|------------|-----------|-----------|
+| 32-bit | 1 | PWM counter storage |
+| 3-bit | 2 | SPI data latch and duty cycle register |
+| 2-bit | 2 | State tracking and mode control |
+| 1-bit | 4 | Status flags and enable control |
+
+### 🔀 Multiplexers (Muxes)
+| Type | Bit Width | Quantity | Function |
+|-------|------------|-----------|-----------|
+| 2-Input | 2-bit | 1 | SPI data path selection |
+| 2-Input | 1-bit | 1 | Output control selection |
+
+---
+
+> 🧠 *These components collectively form the core digital logic of the PWM Modulator, enabling synchronized SPI data reception, duty cycle control, and pulse generation within the FPGA.*
+
+
+---
+
 ### 📊 Resource Utilization (Post-Synthesis)
 
 | Resource | Utilization | Description |
@@ -117,27 +149,6 @@ Thus, the LED’s intensity is **wire-controlled** through SPI communication.
 
 > ⚠ **Note:** Ensure both devices share a common ground.
 
----
-
-## 📂 Repository Structure
-
-PWM-Modulator-SPI/
-```
-│
-├── /fpga/ → Verilog design files
-│ ├── spi_slave.v
-│ ├── pwm_gen.v
-│ ├── clock_divider.v
-│ └── spi_pwm_top.v
-│
-├── /esp8266/ → ESP SPI master code
-│ └── esp8266_master.ino
-│
-├── /connection/ → Circuit & synthesis images
-│
-└── README.md → Full documentation
-```
----
 
 ## 🧪 Verification & Testing
 
